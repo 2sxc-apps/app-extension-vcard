@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <!-- This file helps VS Code provide IntelliSense - see https://go.2sxc.org/vscode -->
 
   <PropertyGroup>
@@ -9,6 +9,7 @@
       - net8.0 is the default for Oqtane 5
     -->
     <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
 
     <!-- Specify the default Namespace for code in this specific App -->
     <RootNamespace>ThisApp</RootNamespace>
@@ -42,7 +43,7 @@
     <Reference Include="$(PathBin)\DotNetNuke.*.dll" />
     <Reference Include="$(PathBin)\System.Web.Http.dll" />
     <Reference Include="$(PathBin)\System.Web.WebPages.dll" />
-    <Reference Include="$(PathBin)\System.Net.Http.dll" />
+    <Reference Include="System.Net.Http" />
 
     <!-- System.Web is not in the DNN folder but in the .net Framework installed on the server -->
     <Reference Include="System.Web" />
