@@ -1,0 +1,16 @@
+@inherits Custom.Hybrid.RazorTyped
+
+@{
+  var downloadUrl = Link.To(api: "api/TestVCard/Download");
+}
+
+<div class="alert alert-info">
+  <h2 class="h4">vCard extension test</h2>
+  <p>
+    This downloads a vCard made from hard-coded test data. It does not use a
+    content type, query, or the PeopleDirectory app.
+  </p>
+  <a class="btn btn-primary" href="@downloadUrl">
+    Download test vCard
+  </a>
+</div>
