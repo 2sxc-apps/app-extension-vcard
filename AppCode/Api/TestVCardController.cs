@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Web.Http;
 #endif
 using AppCode.Extensions.VCard;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Self-contained test endpoint for the vCard extension.
@@ -15,7 +16,7 @@ public class TestVCardController : Custom.Hybrid.ApiTyped
 {
   [HttpGet]
   [AllowAnonymous]
-  public object Download()
+  public async Task<object> Download()
   {
     // Deliberately uses hard-coded data: this proves that the extension is
     // independent of a specific 2sxc content type, query, or app.
@@ -34,14 +35,28 @@ public class TestVCardController : Custom.Hybrid.ApiTyped
       Email = "info@2sic.net",
       Url = "2sic.net",
       FileName = "2sic test",
+      PhotoUrl = AppIconUrl(),
+      PhotoType = "PNG",
     };
 
-    var result = GetService<VCardService>().Create(card);
+    var result = await GetService<VCardService>().CreateAsync(card);
     return File(
       download: true,
       contents: result.Contents,
       contentType: result.ContentType,
       fileDownloadName: result.FileName
     );
+  }
+
+  private string AppIconUrl()
+  {
+    var relativeUrl = $"{App.Folder.Url}/app-icon.png";
+
+#if NETCOREAPP // Oqtane
+    return $"{Request.Scheme}://{Request.Host}{relativeUrl}";
+#else // DNN
+    var siteRoot = Request.RequestUri.GetLeftPart(System.UriPartial.Authority);
+    return $"{siteRoot}{relativeUrl}";
+#endif
   }
 }

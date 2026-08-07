@@ -19,6 +19,13 @@ namespace AppCode.Extensions.VCard
     public string Mobile { get; set; }
     public string Email { get; set; }
     public string Url { get; set; }
+
+    /// <summary>
+    /// Absolute URL of an image to download and embed in the vCard.
+    /// The URL itself won't be included in the vCard. A supplied
+    /// <see cref="PhotoBase64"/> takes precedence.
+    /// </summary>
+    public string PhotoUrl { get; set; }
     public string PhotoBase64 { get; set; }
     public string PhotoType { get; set; } = "JPEG";
     public string FileName { get; set; }

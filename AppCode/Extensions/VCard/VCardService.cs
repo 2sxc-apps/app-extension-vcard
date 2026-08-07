@@ -7,23 +7,29 @@ using System.Threading.Tasks;
 
 namespace AppCode.Extensions.VCard
 {
-  /// <summary>Creates vCard files from data supplied by any 2sxc app.</summary>
+  /// <summary>
+  /// Creates vCard files from data supplied by any 2sxc app.
+  /// </summary>
   public class VCardService : Custom.Hybrid.CodeTyped
   {
-    public VCardFile Create(VCard card)
+    public async Task<VCardFile> CreateAsync(VCard card)
     {
       if (card == null)
         throw new ArgumentNullException(nameof(card));
 
+      var photoBase64 = string.IsNullOrWhiteSpace(card.PhotoBase64)
+        ? await DownloadPhotoAsync(card.PhotoUrl)
+        : card.PhotoBase64;
+
       return new VCardFile
       {
-        Contents = new UTF8Encoding(false).GetBytes(Serialize(card)),
+        Contents = new UTF8Encoding(false).GetBytes(Serialize(card, photoBase64)),
         ContentType = "text/vcard",
         FileName = BuildFileName(card),
       };
     }
 
-    public string Serialize(VCard card)
+    public string Serialize(VCard card, string photoBase64 = null)
     {
       if (card == null)
         throw new ArgumentNullException(nameof(card));
@@ -50,7 +56,7 @@ namespace AppCode.Extensions.VCard
         .AppendLineIfValue("URL;TYPE=WORK:", card.Url)
         .AppendLineIfRawValue(
           $"PHOTO;ENCODING=b;TYPE={PhotoType(card)}:",
-          card.PhotoBase64?.Trim()
+          (photoBase64 ?? card.PhotoBase64)?.Trim()
         )
         .AppendLine("END:VCARD")
         .ToString();

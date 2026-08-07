@@ -5,11 +5,7 @@ namespace AppCode.Extensions.VCard
 {
   internal static class VCardStringExtensions
   {
-    public static StringBuilder AppendLineIfValue(
-      this StringBuilder builder,
-      string prefix,
-      string value
-    )
+    public static StringBuilder AppendLineIfValue(this StringBuilder builder, string prefix, string value)
     {
       if (!string.IsNullOrWhiteSpace(value))
         builder.AppendLine($"{prefix}{value.Escape()}");
@@ -17,11 +13,7 @@ namespace AppCode.Extensions.VCard
       return builder;
     }
 
-    public static StringBuilder AppendLineIfRawValue(
-      this StringBuilder builder,
-      string prefix,
-      string value
-    )
+    public static StringBuilder AppendLineIfRawValue(this StringBuilder builder, string prefix, string value)
     {
       if (!string.IsNullOrWhiteSpace(value))
         builder.AppendLine($"{prefix}{value}");
@@ -29,11 +21,7 @@ namespace AppCode.Extensions.VCard
       return builder;
     }
 
-    public static StringBuilder AppendLineIfAny(
-      this StringBuilder builder,
-      string line,
-      params string[] values
-    )
+    public static StringBuilder AppendLineIfAny(this StringBuilder builder, string line, params string[] values)
     {
       if (values.Any(value => !string.IsNullOrWhiteSpace(value)))
         builder.AppendLine(line);
