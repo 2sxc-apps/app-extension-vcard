@@ -38,7 +38,7 @@ namespace AppCode.Extensions.VCard
         .AppendLine("BEGIN:VCARD")
         .AppendLine("VERSION:3.0")
         .AppendLine($"N:{card.LastName.Escape()};{card.FirstName.Escape()};;;")
-        .AppendLine($"FN:{DisplayName(card).Escape()}")
+        .AppendLine($"FN:{GetDisplayName(card).Escape()}")
         .AppendLineIfValue("ORG:", card.Organization)
         .AppendLineIfValue("TITLE:", card.JobTitle)
         .AppendLineIfAny(
@@ -55,7 +55,7 @@ namespace AppCode.Extensions.VCard
         .AppendLineIfValue("EMAIL;TYPE=PREF,INTERNET:", card.Email)
         .AppendLineIfValue("URL;TYPE=WORK:", card.Url)
         .AppendLineIfRawValue(
-          $"PHOTO;ENCODING=b;TYPE={PhotoType(card)}:",
+          $"PHOTO;ENCODING=b;TYPE={GetPhotoType(card)}:",
           (photoBase64 ?? card.PhotoBase64)?.Trim()
         )
         .AppendLine("END:VCARD")
@@ -82,7 +82,7 @@ namespace AppCode.Extensions.VCard
       }
     }
 
-    private static string DisplayName(VCard card)
+    private static string GetDisplayName(VCard card)
     {
       var name = $"{card.FirstName} {card.LastName}".Trim();
 
@@ -91,10 +91,15 @@ namespace AppCode.Extensions.VCard
         : name;
     }
 
+    private static string GetPhotoType(VCard card)
+      => string.IsNullOrWhiteSpace(card.PhotoType)
+        ? "JPEG"
+        : card.PhotoType.ToUpperInvariant();
+
     private static string BuildFileName(VCard card)
     {
       var requested = string.IsNullOrWhiteSpace(card.FileName)
-        ? DisplayName(card)
+        ? GetDisplayName(card)
         : card.FileName.Trim();
 
       var invalidCharacters = Path.GetInvalidFileNameChars();
@@ -114,10 +119,6 @@ namespace AppCode.Extensions.VCard
         : $"{safeName}.vcf";
     }
 
-    private static string PhotoType(VCard card)
-      => string.IsNullOrWhiteSpace(card.PhotoType)
-        ? "JPEG"
-        : card.PhotoType.ToUpperInvariant();
   }
 }
 
