@@ -1,13 +1,14 @@
+<image src="app-icon.png" align="right" width="200px">
+
 # App Extension vCard
 
 This extension should help you get vCard features into your app.
 
-WIP
-
 ## Context
 
-1. Originally vCard was a build-in feature of 2sxc from ca. 2015-2026
-1. in v22 it's planned to be removed, so it can be added to each app individually as needed
+1. Originally vCard was a build-in feature of 2sxc from ca. 2015-2024
+1. Then it was implemented in the Persons app
+1. In v22 it is converted to an App Extension so it can be added to each app individually as needed
 
 ## To Do @2rb
 

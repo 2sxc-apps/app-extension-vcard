@@ -1,4 +1,4 @@
-﻿{
+{
   "nameId": "f7cc2640-b77a-454c-9e08-d8a284839ff2",
   "name": "vCard",
   "teaser": "Objects and WebAPIs to create vCards",
@@ -6,7 +6,7 @@
   "createdBy": "2sic",
   "copyright": "MIT",
   "linkMain": "",
-  "linkDocs": "",
+  "linkDocs": "https://docs.2sxc.org/extensions/app-extensions/by-2sxc/vcard/index.html",
   "linkSource": "https://github.com/2sxc-apps/app-extension-vcard",
   "linkDemo": "",
   "version": "00.00.01",
