@@ -10,7 +10,7 @@ This extension should help you get vCard features into your app.
 1. Then it was implemented in the Persons app
 1. In v22 it is converted to an App Extension so it can be added to each app individually as needed
 
-## To Do @2rb
+## TODO: @2rb
 
 1. Create a endpoint to create the vCard
     1. Check out the sample of 2sxc (subfolder samples)
@@ -24,3 +24,6 @@ This extension should help you get vCard features into your app.
 ## History
 
 1. 2026-08-03 2dm: create app/repo etc. and copy vCard code from 2sxc core to this app
+1. TODO: @2rb put your history here
+1. 2026-08-12 2dm: Added icon
+1. 2026-08-13 2dm: added license.txt for MIT license
